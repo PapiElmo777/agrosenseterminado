@@ -1,125 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard Sensores</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-    }
-    .sidebar {
-      height: 100vh;
-      background-color: #343a40;
-      color: white;
-      padding-top: 1rem;
-    }
-    .sidebar a {
-      display: block;
-      color: white;
-      padding: 1rem;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .sidebar a:hover {
-      background-color: #495057;
-      text-decoration: none;
-    }
-    .content {
-      padding: 2rem;
-      height: 100vh;
-      overflow-y: auto;
-      background-color: #f8f9fa;
-    }
-    .measure-card {
-      cursor: default;
-      padding: 1rem;
-      border-radius: 8px;
-      color: white;
-      margin-bottom: 1rem;
-      user-select: none;
-    }
-    .ph { background-color: #0d6efd; }
-    .temp { background-color: #dc3545; }
-    .hum { background-color: #20c997; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGROSENSE | Dashboard</title>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="d-flex">
-    <!-- Sidebar -->
-    <nav class="sidebar d-flex flex-column" style="width: 220px;">
-      <h3 class="text-center mb-4">Menú</h3>
-      <a href="ph.html">PH</a>
-      <a href="temperatura.html">Temperatura</a>
-      <a href="humedad.html">Humedad</a>
-    </nav>
 
-    <!-- Contenido principal -->
-    <div class="content flex-grow-1">
-      <h1 class="mb-4">Dashboard Sensores</h1>
+    <div class="menu-sidebar"> 
+        <h1>Menú</h1>
+        <ul>
+            <li><a href="index.html" class="active">Dashboard</a></li>
+            <li><a href="ph.html">PH</a></li>
+            <li><a href="temperatura.html">Temperatura</a></li>
+            <li><a href="humedad.html">Humedad</a></li>
+        </ul>
+    </div> 
 
-      <!-- Medidas en tiempo real -->
-      <div class="d-flex gap-3 mb-4 flex-wrap">
-        <div class="measure-card ph flex-fill">
-          <h4>PH</h4>
-          <p id="phValue" style="font-size: 1.5rem;">--</p>
-        </div>
-        <div class="measure-card temp flex-fill">
-          <h4>Temperatura (°C)</h4>
-          <p id="tempValue" style="font-size: 1.5rem;">--</p>
-        </div>
-        <div class="measure-card hum flex-fill">
-          <h4>Humedad (%)</h4>
-          <p id="humValue" style="font-size: 1.5rem;">--</p>
-        </div>
-      </div>
+    <div class="main-content">
+        <h2>Resumen de Mediciones AGROSENSE</h2>
 
-      <!-- Tabla historial -->
-      <h3>Historial General</h3>
-      <table class="table table-striped table-bordered w-100">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>PH</th>
-            <th>Temperatura (°C)</th>
-            <th>Humedad (%)</th>
-          </tr>
-        </thead>
-        <tbody id="historialTable">
-          <!-- Se llena con JS -->
-        </tbody>
-      </table>
+        <div class="dashboard-grid">
+            
+            <div class="card">
+                <h2>Temperatura</h2>
+                <canvas id="graficaDashboardTemperatura"></canvas>
+            </div>
+
+            <div class="card">
+                <h2>Humedad</h2>
+                <canvas id="graficaDashboardHumedad"></canvas>
+            </div>
+
+            <div class="card">
+                <h2>PH</h2>
+                <canvas id="graficaDashboardPH"></canvas>
+            </div>
+
+        </div>
+        
     </div>
-  </div>
 
-  <script>
-    // Simulamos datos en tiempo real y tabla histórica
-    const historial = [
-      { fecha: "2025-10-16 10:00", ph: 6.8, temp: 24.5, hum: 55 },
-      { fecha: "2025-10-16 09:45", ph: 6.9, temp: 24.3, hum: 56 },
-      { fecha: "2025-10-16 09:30", ph: 7.0, temp: 24.1, hum: 54 },
-      { fecha: "2025-10-16 09:15", ph: 6.7, temp: 24.0, hum: 53 },
-      { fecha: "2025-10-16 09:00", ph: 6.8, temp: 23.8, hum: 52 }
-    ];
-
-    // Última lectura = la primera del array (más reciente)
-    const ultima = historial[0];
-
-    document.getElementById("phValue").textContent = ultima.ph;
-    document.getElementById("tempValue").textContent = ultima.temp;
-    document.getElementById("humValue").textContent = ultima.hum;
-
-    const tbody = document.getElementById("historialTable");
-    tbody.innerHTML = historial.map(row => `
-      <tr>
-        <td>${row.fecha}</td>
-        <td>${row.ph}</td>
-        <td>${row.temp}</td>
-        <td>${row.hum}</td>
-      </tr>
-    `).join('');
-  </script>
-</body>
+    <script src="js/js/dashboard.js"></script>
+    </body>
 </html>

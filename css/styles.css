@@ -16,3 +16,140 @@ body, html {
 #wrapper {
   height: 100%;
 }
+
+/* Estilos para el nuevo dashboard en index.html */
+.dashboard-grid {
+    display: grid;
+    /* Divide el espacio en 3 columnas iguales */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; /* Espacio entre las tarjetas */
+    margin-top: 30px;
+}
+
+.dashboard-grid .card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 350px; /* Altura fija para todas las tarjetas */
+}
+
+.dashboard-grid .card h2 {
+    text-align: center;
+    margin-top: 0;
+    color: #333;
+}
+/* --- AJUSTES DE DISEÑO GENERAL (Basado en la estructura del menú) --- */
+/* Estructura para el menú lateral y el contenido principal */
+.menu-sidebar {
+    width: 200px; /* Ancho fijo para el menú */
+    background-color: #363636; /* Color oscuro */
+    color: white;
+    padding: 20px 0;
+    position: fixed; /* Mantiene el menú en su lugar */
+    height: 100%;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+}
+
+.menu-sidebar h1 {
+    font-size: 1.5em;
+    padding: 0 20px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+
+.menu-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.menu-sidebar ul li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #ccc;
+    font-size: 1.1em;
+}
+
+.menu-sidebar ul li a:hover, .menu-sidebar ul li a.active {
+    background-color: #007bff; /* Color de realce */
+    color: white;
+}
+
+/* Ajusta el contenido principal para que empiece después del menú */
+.main-content {
+    margin-left: 200px; /* Debe coincidir con el ancho del sidebar */
+    padding: 20px;
+    padding-top: 50px; /* Espacio superior */
+}
+
+.main-content h2 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+}
+
+/* --- ESTILOS PARA LAS TARJETAS DEL DASHBOARD (index.html) --- */
+.dashboard-grid {
+    display: grid;
+    /* Divide el espacio en 3 columnas iguales */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 25px; /* Espacio entre las tarjetas */
+}
+
+/* Estilos para las tarjetas individuales de cada medición */
+.dashboard-grid .card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    height: 380px; /* Altura fija para que todas se vean iguales */
+}
+
+.dashboard-grid .card h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.4em;
+}
+
+/* --- ESTILOS PARA LA TABLA DE HISTORIAL EN PÁGINAS INDIVIDUALES --- */
+
+/* Estilo para el contenedor de la gráfica en las páginas individuales */
+.chart-card {
+    width: 80%; /* Ancho de la gráfica */
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.data-table {
+    width: 60%; /* Ancho de la tabla en el contenido principal */
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.data-table thead th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Efecto para hacer más legible la tabla */
+.data-table tbody tr:hover {
+    background-color: #f9f9f9;
+}

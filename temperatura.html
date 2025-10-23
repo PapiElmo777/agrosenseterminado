@@ -1,120 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Temperatura - Dashboard Sensores</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-    }
-    .sidebar {
-      height: 100vh;
-      background-color: #343a40;
-      color: white;
-      padding-top: 1rem;
-    }
-    .sidebar a {
-      display: block;
-      color: white;
-      padding: 1rem;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .sidebar a:hover {
-      background-color: #495057;
-      text-decoration: none;
-    }
-    .content {
-      padding: 2rem;
-      height: 100vh;
-      overflow-y: auto;
-      background-color: #f8f9fa;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperatura - AGROSENSE</title>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="d-flex">
-    <!-- Sidebar -->
-    <nav class="sidebar d-flex flex-column" style="width: 220px;">
-      <h3 class="text-center mb-4">Menú</h3>
-      <a href="ph.html">PH</a>
-      <a href="temperatura.html">Temperatura</a>
-      <a href="humedad.html">Humedad</a>
-    </nav>
 
-    <!-- Contenido principal -->
-    <div class="content flex-grow-1">
-      <h1 class="mb-4">Mediciones de Temperatura</h1>
+    <div class="menu-sidebar"> 
+        <h1>Menú</h1>
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="ph.html">PH</a></li>
+            <li><a href="temperatura.html" class="active">Temperatura</a></li>
+            <li><a href="humedad.html">Humedad</a></li>
+        </ul>
+    </div> 
 
-      <!-- Gráfico -->
-      <canvas id="tempChart" style="max-width: 100%; max-height: 400px;"></canvas>
+    <div class="main-content">
+        <h1>Mediciones de Temperatura</h1>
 
-      <!-- Tabla de historial -->
-      <h3 class="mt-5">Historial de Temperatura</h3>
-      <table class="table table-striped table-bordered w-100 mt-3">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Temperatura (°C)</th>
-          </tr>
-        </thead>
-        <tbody id="tempTable">
-          <!-- Se llenará por JS -->
-        </tbody>
-      </table>
+        <div class="chart-card">
+            <canvas id="graficaTemperatura"></canvas>
+        </div>
 
-      <a href="index.html" class="btn btn-secondary mt-4">← Volver al inicio</a>
+        <h2>Historial de Temperatura</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Temperatura (°C)</th>
+                </tr>
+            </thead>
+            <tbody id="temperatura-history-body">
+            </tbody>
+        </table>
+        
     </div>
-  </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const tempData = [
-        { fecha: "2025-10-16 10:00", valor: 24.5 },
-        { fecha: "2025-10-16 09:45", valor: 24.3 },
-        { fecha: "2025-10-16 09:30", valor: 24.1 },
-        { fecha: "2025-10-16 09:15", valor: 24.0 },
-        { fecha: "2025-10-16 09:00", valor: 23.8 }
-      ];
-
-      const table = document.getElementById("tempTable");
-      table.innerHTML = tempData.map(d => `
-        <tr>
-          <td>${d.fecha}</td>
-          <td>${d.valor}</td>
-        </tr>
-      `).join('');
-
-      const ctx = document.getElementById('tempChart').getContext('2d');
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: tempData.map(d => d.fecha),
-          datasets: [{
-            label: 'Temperatura (°C)',
-            data: tempData.map(d => d.valor),
-            borderColor: '#dc3545',
-            backgroundColor: 'rgba(220,53,69,0.2)',
-            fill: true,
-            tension: 0.3
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              suggestedMin: 20,
-              suggestedMax: 30
-            }
-          }
-        }
-      });
-    });
-  </script>
+    <script src="js/temperatura.js"></script>
 </body>
 </html>
-
