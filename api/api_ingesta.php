@@ -1,45 +1,59 @@
 <?php
 // Incluir el archivo de conexión
-require_once 'config_db.php';
+require_once 'config_db.php'; // $conn se crea aquí
 
-// Asegura que solo se procesen peticiones POST (como las que enviará el ESP32)
+// =======================================================
+//  ¡INICIO DE LA CORRECCIÓN! 
+// 1. Desactivamos el auto-guardado para controlarlo nosotros.
+$conn->autocommit(FALSE);
+// =======================================================
+
+// Asegura que solo se procesen peticiones POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Obtener y sanitizar los datos recibidos
-    $temperatura = isset($_POST['temperatura']) ? $conn->real_escape_string($_POST['temperatura']) : null;
     $humedad = isset($_POST['humedad']) ? $conn->real_escape_string($_POST['humedad']) : null;
     $ph = isset($_POST['ph']) ? $conn->real_escape_string($_POST['ph']) : null;
 
-    // Verificar que los datos no sean nulos
-    if ($temperatura === null || $humedad === null || $ph === null) {
-        http_response_code(400); // Bad Request
-        die("Error: Faltan parámetros (temperatura, humedad, o ph).");
+    if ($humedad === null || $ph === null) {
+        http_response_code(400); 
+        die("Error: Faltan parámetros (humedad o ph).");
     }
 
-    // Consulta SQL preparada para insertar los datos
-    $sql = "INSERT INTO " . TABLE_NAME . " (temperatura, humedad, ph) VALUES (?, ?, ?)";
+    // USA LOS NOMBRES DE TU TABLA Y DB
+    $sql = "INSERT INTO " . TABLE_NAME . " (humedad, ph) VALUES (?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        // 'ddd' indica que los tres parámetros son de tipo decimal/double
-        $stmt->bind_param("ddd", $temperatura, $humedad, $ph); 
+        
+        $stmt->bind_param("dd", $humedad, $ph); 
 
         if ($stmt->execute()) {
-            http_response_code(200); // OK
+            http_response_code(200); 
             echo "Datos guardados exitosamente";
+            
+            // =======================================================
+            // 2. ¡CONFIRMAMOS! Le decimos a la BD que guarde permanentemente.
+            $conn->commit(); 
+            // =======================================================
+
         } else {
-            http_response_code(500); // Internal Server Error
+            http_response_code(500); 
             echo "Error al ejecutar la consulta: " . $stmt->error;
+
+            // =======================================================
+            // 3. (Extra) Si falló, revertimos cualquier cambio.
+            $conn->rollback(); 
+            // =======================================================
         }
 
         $stmt->close();
     } else {
         http_response_code(500);
         echo "Error al preparar la consulta: " . $conn->error;
+        $conn->rollback(); // Revertimos si la preparación falló
     }
 
 } else {
-    // Si el método no es POST
-    http_response_code(405); // Method Not Allowed
+    http_response_code(405); 
     echo "Método no permitido. Solo se acepta POST.";
 }
 
