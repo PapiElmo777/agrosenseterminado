@@ -4,7 +4,7 @@ import time
 
 # 1. CONFIGURA TU PUERTO ARDUINO
 # (Esta ruta ya es la correcta para ti)
-PUERTO_ARDUINO = "/dev/cu.usbmodem1201"  
+PUERTO_ARDUINO = "/dev/cu.usbmodem1301"  
     
 # 2. CONFIGURA LA URL DE TU API
 URL_API = "http://localhost/AGROSENCE/api/api_ingesta.php"

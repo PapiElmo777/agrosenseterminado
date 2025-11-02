@@ -5,45 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AGROSENSE | Dashboard</title>
     
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ <link rel="stylesheet" href="css/styles.css?v=3">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 </head>
 <body>
 
     <div class="menu-sidebar"> 
-        <h1>Menú</h1>
+        
+        <div class="sidebar-header">
+            <img src="img/logo.png" alt="Logo AGROSENSE">
+            <h1>Menú</h1>
+        </div>
+
         <ul>
             <li><a href="index.html" class="active">Dashboard</a></li>
             <li><a href="ph.html">PH</a></li>
-            <li><a href="temperatura.html">Temperatura</a></li>
             <li><a href="humedad.html">Humedad</a></li>
         </ul>
     </div> 
 
     <div class="main-content">
-        <h2>Resumen de Mediciones AGROSENSE</h2>
-
+        <h2>Resumen de Mediciones AGROSENCE</h2>
+        
         <div class="dashboard-grid">
             
             <div class="card">
-                <h2>Temperatura</h2>
-                <canvas id="graficaDashboardTemperatura"></canvas>
-            </div>
-
-            <div class="card">
-                <h2>Humedad</h2>
+                <h2>Última Humedad</h2>
+                
+                <!-- 1. GRÁFICA (de vuelta) -->
                 <canvas id="graficaDashboardHumedad"></canvas>
+                
+                <!-- 2. TABLA (ya estaba) -->
+                <table class="mini-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Humedad (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="latest-humidity-body">
+                        <!-- Llenado por JS -->
+                    </tbody>
+                </table>
             </div>
 
             <div class="card">
-                <h2>PH</h2>
+                <h2>Último PH</h2>
+                
+                <!-- 1. GRÁFICA (de vuelta) -->
                 <canvas id="graficaDashboardPH"></canvas>
+                
+                <!-- 2. TABLA (ya estaba) -->
+                <table class="mini-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>PH</th>
+                        </tr>
+                    </thead>
+                    <tbody id="latest-ph-body">
+                        <!-- Llenado por JS -->
+                    </tbody>
+                </table>
             </div>
-
+            
         </div>
         
     </div>
 
-    <script src="js/js/dashboard.js"></script>
-    </body>
+    <script src="js/dashboard.js"></script>
+</body>
 </html>

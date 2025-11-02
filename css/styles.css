@@ -1,155 +1,425 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --color-primary-dark: #2a6a3b;
+    --color-primary-light: #6aa84f;
+    --color-secondary-green: #9acd32;
+    --color-bg-light: #f5fbf1;
+    --color-bg-gradient-start: #e0f2f7;
+    --color-bg-gradient-end: #f0f7e9;
+    --color-text-dark: #333;
+    --color-text-light: #fff;
+    --color-card-bg: #ffffff;
+    --color-border: #e0e0e0;
 }
 
-.card-metric {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-.card-metric:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-#wrapper {
-  height: 100%;
-}
-
-/* Estilos para el nuevo dashboard en index.html */
-.dashboard-grid {
-    display: grid;
-    /* Divide el espacio en 3 columnas iguales */
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 20px; /* Espacio entre las tarjetas */
-    margin-top: 30px;
-}
-
-.dashboard-grid .card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 350px; /* Altura fija para todas las tarjetas */
-}
-
-.dashboard-grid .card h2 {
-    text-align: center;
-    margin-top: 0;
-    color: #333;
-}
-/* --- AJUSTES DE DISEÑO GENERAL (Basado en la estructura del menú) --- */
-/* Estructura para el menú lateral y el contenido principal */
-.menu-sidebar {
-    width: 200px; /* Ancho fijo para el menú */
-    background-color: #363636; /* Color oscuro */
-    color: white;
-    padding: 20px 0;
-    position: fixed; /* Mantiene el menú en su lugar */
-    height: 100%;
-    top: 0;
-    left: 0;
+•⁠  ⁠{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-.menu-sidebar h1 {
-    font-size: 1.5em;
-    padding: 0 20px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 10px;
+body {
+    display: flex;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--color-bg-gradient-start), var(--color-bg-gradient-end));
+    color: var(--color-text-dark);
 }
+
+/* ================================== */
+/* ¡MODIFICACIÓN! - Sidebar con Imagen */
+/* ================================== */
+.menu-sidebar {
+    width: 250px;
+    
+    /* 1. Imagen de fondo con superposición oscura (85%) */
+    /* 🛑 ¡CORRECCIÓN DE RUTA! 🛑 
+       El CSS está en /css, debe subir un nivel (../) 
+       y luego entrar a /img para encontrar la imagen. */
+    background-image: 
+        linear-gradient(rgba(42, 106, 59, 0.85), rgba(42, 106, 59, 0.85)), 
+        url('../img/Agricultural-Land.jpg'); /* <-- ¡Ruta corregida! */
+    
+    /* 2. Ajustes de la imagen */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: var(--color-text-light);
+    padding: 25px 0;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    position: relative; /* Añadido para asegurar el apilamiento */
+}
+/* ================================== */
+
+.sidebar-header {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    padding: 0 20px 20px 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* Hacemos el fondo del header semi-transparente para ver la imagen */
+    background-color: rgba(0,0,0,0.1); 
+    position: relative;
+    z-index: 2;
+}
+
+.sidebar-header img {
+    width: 70px; 
+    height: auto;
+    opacity: 0.9;
+    margin-right: 15px;
+}
+
+.sidebar-header h1 {
+    font-size: 1.8em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--color-secondary-green);
+    margin: 0;
+}
+
 
 .menu-sidebar ul {
     list-style: none;
-    padding: 0;
-    margin: 20px 0;
+    flex-grow: 1;
+    position: relative; /* Asegura que los enlaces estén sobre el fondo */
+    z-index: 2;
 }
 
 .menu-sidebar ul li a {
     display: block;
-    padding: 10px 20px;
+    padding: 15px 30px;
+    color: var(--color-text-light);
     text-decoration: none;
-    color: #ccc;
     font-size: 1.1em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
 }
 
-.menu-sidebar ul li a:hover, .menu-sidebar ul li a.active {
-    background-color: #007bff; /* Color de realce */
-    color: white;
+.menu-sidebar ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Ajusta el contenido principal para que empiece después del menú */
+.menu-sidebar ul li a.active {
+    background-color: var(--color-secondary-green);
+    color: var(--color-primary-dark);
+    font-weight: 600;
+}
+
+
+/* Main Content Styling (Sin cambios de fondo) */
 .main-content {
-    margin-left: 200px; /* Debe coincidir con el ancho del sidebar */
-    padding: 20px;
-    padding-top: 50px; /* Espacio superior */
+    flex-grow: 1;
+    padding: 40px;
+    overflow-y: auto;
+    position: relative; 
+}
+
+.main-content h1, .main-content h2 {
+    color: var(--color-primary-dark);
+    margin-bottom: 25px;
+    font-weight: 600;
+    border-bottom: 2px solid var(--color-primary-light);
+    padding-bottom: 10px;
 }
 
 .main-content h2 {
     font-size: 1.8em;
-    margin-bottom: 30px;
 }
 
-/* --- ESTILOS PARA LAS TARJETAS DEL DASHBOARD (index.html) --- */
+.main-content h1 {
+    font-size: 2.2em;
+}
+
+/* Dashboard Grid */
 .dashboard-grid {
     display: grid;
-    /* Divide el espacio en 3 columnas iguales */
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 25px; /* Espacio entre las tarjetas */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    position: relative;
+    z-index: 2;
 }
 
-/* Estilos para las tarjetas individuales de cada medición */
+/* Card Styling */
+.card, .chart-card {
+    background-color: var(--color-card-bg);
+    border-radius: 15px; 
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--color-border);
+}
+
+/* ================================== */
+/* ¡AJUSTE PARA GRÁFICA + TABLA! */
+/* ================================== */
 .dashboard-grid .card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e0e0e0;
-    height: 380px; /* Altura fija para que todas se vean iguales */
+    min-height: 450px; /* Más altura para que quepa todo */
+    display: flex;
+    flex-direction: column;
+}
+.dashboard-grid .card canvas {
+    height: 250px !important; /* Altura fija para la gráfica */
+    width: 100%;
+    margin-bottom: 20px; /* Espacio entre gráfica y tabla */
+    flex-grow: 0;
 }
 
-.dashboard-grid .card h2 {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #333;
-    font-size: 1.4em;
-}
-
-/* --- ESTILOS PARA LA TABLA DE HISTORIAL EN PÁGINAS INDIVIDUALES --- */
-
-/* Estilo para el contenedor de la gráfica en las páginas individuales */
 .chart-card {
-    width: 80%; /* Ancho de la gráfica */
-    margin-bottom: 40px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 400px;
 }
 
+.card:hover, .chart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card h2, .chart-card h1, .chart-card h2 {
+    color: var(--color-primary-light);
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: none; 
+    padding-bottom: 0;
+}
+
+.chart-card {
+    grid-column: 1 / -1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.chart-card canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Table Styling (Grande) */
 .data-table {
-    width: 60%; /* Ancho de la tabla en el contenido principal */
+    width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    margin-bottom: 50px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    background-color: var(--color-card-bg);
+    border-radius: 15px;
+    overflow: hidden; 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
 }
-
 .data-table th, .data-table td {
-    padding: 12px 15px;
+    padding: 15px 20px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-border);
 }
-
-.data-table thead th {
-    background-color: #f4f4f4;
-    color: #333;
-    font-weight: bold;
+.data-table thead {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-light);
 }
-
-/* Efecto para hacer más legible la tabla */
+.data-table th {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+.data-table tbody tr:nth-child(even) {
+    background-color: var(--color-bg-light);
+}
 .data-table tbody tr:hover {
-    background-color: #f9f9f9;
+    background-color: #e6f7e0; 
+}
+
+
+/* ¡MINI-TABLAS PARA EL DASHBOARD! */
+.mini-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    flex-shrink: 0; /* Evita que la tabla se encoja */
+}
+.mini-table th, .mini-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+.mini-table th {
+    color: var(--color-primary-light);
+    font-weight: 600;
+}
+.mini-table tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .menu-sidebar {
+        width: 100%;
+        height: auto;
+        padding: 15px 0;
+    }
+    
+    .sidebar-header {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 10px;
+    }
+    .sidebar-header img {
+        width: 40px;
+    }
+    .sidebar-header h1 {
+        font-size: 1.5em;
+    }
+
+    .menu-sidebar ul {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .menu-sidebar ul li a {
+        padding: 10px 20px;
+        font-size: 1em;
+        border-radius: 20px;
+        margin: 5px;
+    }
+    .menu-sidebar ul li a.active {
+        border-radius: 20px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+/* ================================================= */
+/* ¡NUEVO! - Animación de Indicador "Live" para Títulos */
+/* ================================================= */
+
+/* 1. Hacemos espacio para el punto antes del título */
+.main-content h1, .main-content h2 {
+    position: relative; /* Necesario para el pseudo-elemento */
+    padding-left: 35px; /* Espacio a la izquierda para el punto */
+}
+
+/* 2. Creamos el punto (pseudo-elemento ::before) */
+.main-content h1::before,
+.main-content h2::before {
+    content: ''; /* Obligatorio para un pseudo-elemento */
+    width: 15px; /* Tamaño del punto */
+    height: 15px; /* Tamaño del punto */
+    background-color: var(--color-secondary-green); /* Color verde brillante */
+    border-radius: 50%; /* Lo hace un círculo */
+    box-shadow: 0 0 10px var(--color-secondary-green), 0 0 15px var(--color-secondary-green); /* Efecto de brillo */
+    
+    position: absolute; /* Lo saca del flujo normal */
+    left: 0; /* Lo posiciona en el espacio que creamos */
+    top: 50%;
+    transform: translateY(-50%); /* Centra verticalmente */
+    
+    /* ¡La animación! */
+    animation: pulse 1.5s infinite;
+}
+
+/* 3. Definimos la animación "pulse" */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(-50%) scale(0.85);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+/* ================================================= */
+/* ¡NUEVO! - Animación de Entrada para Tarjetas */
+/* ================================================= */
+
+/* 1. Estado inicial: Oculto y 20px más abajo */
+.card, .chart-card, .data-table {
+    opacity: 0; /* Totalmente transparente */
+    transform: translateY(20px); /* Ligeramente abajo */
+    animation: fadeInSlideUp 0.6s ease-out forwards;
+}
+
+/* 2. Definición de la animación */
+@keyframes fadeInSlideUp {
+    to {
+        opacity: 1; /* Totalmente visible */
+        transform: translateY(0); /* Posición original */
+    }
+}
+
+/* 3. (Opcional) Retraso para un efecto escalonado */
+/* Hacemos que la segunda tarjeta del dashboard aparezca un poco después */
+.dashboard-grid .card:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+/* Y las tablas de historial también */
+.data-table {
+    animation-delay: 0.15s;
+}
+/* ================================================= */
+/* ¡NUEVO! - "Listón" Decorativo para Tarjetas */
+/* ================================================= */
+
+/* 1. Preparamos la tarjeta para posicionar el listón */
+.card, .chart-card {
+    position: relative; /* Necesario para el pseudo-elemento */
+    overflow: hidden; /* ¡SÚPER IMPORTANTE! para que el listón no se salga */
+}
+
+/* 2. "Dibujamos" el listón con un pseudo-elemento ::before */
+.card::before, 
+.chart-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;  /* Posición inicial (fuera de la esquina) */
+    right: -50px; /* Posición inicial (fuera de la esquina) */
+    width: 100px; /* Ancho del listón */
+    height: 100px; /* Alto del listón */
+    
+    /* ¡Usamos el verde de tu menú! */
+    background-color: var(--color-primary-light); 
+    
+    /* El truco para girarlo 45 grados */
+    transform: rotate(45deg);
+    
+    z-index: 1; /* Detrás del contenido */
+    opacity: 0.9;
+    
+    /* Animación sutil al pasar el mouse */
+    transition: all 0.3s ease-out;
+}
+
+/* 3. Hacemos que el listón reaccione al pasar el mouse */
+.card:hover::before,
+.chart-card:hover::before {
+    top: -40px; /* Se mueve un poco */
+    right: -40px; /* Se mueve un poco */
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+/* 4. Nos aseguramos de que el contenido de la tarjeta esté por encima del listón */
+.card > *,
+.chart-card > * {
+    position: relative;
+    z-index: 2; /* Encima del listón (z-index: 1) */
+}
 }

@@ -37,23 +37,21 @@ function cargarDashboardData() {
             if (!response.ok) throw new Error('HTTP Error: ' + response.statusText);
             return response.json();
         })
-        .then(data => { // 'data' es el objeto { error: false, datos: [...], total: 5 }
+        .then(data => { 
             const gridContainer = document.querySelector('.dashboard-grid');
             
-            // ✅ CORRECCIÓN: Comprobar 'data.error' o 'data.total'
             if (data.error || data.total === 0) {
                 if (gridContainer) gridContainer.innerHTML = '<p style="text-align:center; padding: 20px;">No hay datos en la base de datos.</p>';
                 return;
             }
 
-            // ✅ CORRECCIÓN: Usar 'data.datos.map' en lugar de 'data.map'
             const timestamps = data.datos.map(item => item.timestamp);
-            const temperaturas = data.datos.map(item => parseFloat(item.temperatura));
+            // const temperaturas = data.datos.map(item => parseFloat(item.temperatura)); // ELIMINADO
             const humedades = data.datos.map(item => parseFloat(item.humedad));
             const ph_values = data.datos.map(item => parseFloat(item.ph));
 
-            // Dibuja las 3 gráficas
-            dibujarGrafica('graficaDashboardTemperatura', timestamps, temperaturas, 'Temperatura (°C)', 'rgb(255, 99, 132)', 'rgba(255, 99, 132, 0.2)', 15, 35);
+            // Dibuja solo las 2 gráficass
+            // dibujarGrafica('graficaDashboardTemperatura', timestamps, temperaturas, 'Temperatura (°C)', 'rgb(255, 99, 132)', 'rgba(255, 99, 132, 0.2)', 15, 35); // ELIMINADO
             dibujarGrafica('graficaDashboardHumedad', timestamps, humedades, 'Humedad del Suelo (%)', 'rgb(54, 162, 235)', 'rgba(54, 162, 235, 0.2)', 20, 100);
             dibujarGrafica('graficaDashboardPH', timestamps, ph_values, 'Nivel de pH', 'rgb(75, 192, 192)', 'rgba(75, 192, 192, 0.2)', 4, 9);
         })
